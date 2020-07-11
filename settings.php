@@ -1,122 +1,122 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
-session_start();
-include("config/connect.php");
-include("includes/fetch_users_info.php");
-include ("includes/time_function.php");
-include("includes/country_name_function.php");
-if(!isset($_SESSION['Username'])){
-    header("location: login.php");
-}
-$tc = filter_var(htmlentities($_GET['tc']),FILTER_SANITIZE_STRING);
-// =============================[ prepare input variable's ]=================================
-$session_un = $_SESSION['Username'];
-
-$fullname_var = filter_var(htmlentities($_POST['edit_fullname']),FILTER_SANITIZE_STRING);
-$username_var = filter_var(htmlentities($_POST['edit_username']),FILTER_SANITIZE_STRING);
-$email_var = filter_var(htmlentities($_POST['edit_email']),FILTER_SANITIZE_STRING);
-// =========================== password hashinng ==================================
-$new_password_var_field = filter_var(htmlentities($_POST['new_pass']),FILTER_SANITIZE_STRING);
-$options = array(
-    'cost' => 12,
-);
-$new_password_var = password_hash($new_password_var_field, PASSWORD_BCRYPT, $options);
-// ================================================================================
-$rewrite_new_password_var = filter_var(htmlentities($_POST['rewrite_new_pass']),FILTER_SANITIZE_STRING);
-
-// filter gender as prefered language
-$gender_var = filter_var(htmlentities($_POST['gender']),FILTER_SANITIZE_STRING);
-if ($gender_var == lang('male')) {
-   $gender_var = "Male";
-}elseif ($gender_var == lang('female')) {
-    $gender_var = "Female";
-}
-
-$school_var = filter_var(htmlentities($_POST['edit_school']),FILTER_SANITIZE_STRING);
-$work_var = filter_var(htmlentities($_POST['edit_work']),FILTER_SANITIZE_STRING);
-$work0_var = filter_var(htmlentities($_POST['edit_work0']),FILTER_SANITIZE_STRING);
-$country_var = filter_var(htmlentities($_POST['edit_country']),FILTER_SANITIZE_STRING);
-$birthday_var = filter_var(htmlentities($_POST['bd_year']),FILTER_SANITIZE_NUMBER_INT)."/".filter_var(htmlentities($_POST['bd_month']),FILTER_SANITIZE_NUMBER_INT)."/".filter_var(htmlentities($_POST['bd_day']),FILTER_SANITIZE_NUMBER_INT);
-$website_var = filter_var(htmlentities($_POST['edit_website']),FILTER_SANITIZE_STRING);
-$bio_var = filter_var(htmlentities($_POST['edit_bio']),FILTER_SANITIZE_STRING);
-
-$language_var = filter_var(htmlspecialchars($_POST['edit_language']),FILTER_SANITIZE_STRING);
-
-$general_current_pass_var = filter_var(htmlentities($_POST['general_current_pass']),FILTER_SANITIZE_STRING);
-$EditProfile_current_pass_var = filter_var(htmlentities($_POST['EditProfile_current_pass']),FILTER_SANITIZE_STRING);
-$lang_current_pass_var = filter_var(htmlentities($_POST['lang_current_pass']),FILTER_SANITIZE_STRING);
-$remeveA_current_pass_var = filter_var(htmlentities($_POST['removeA_current_pass']),FILTER_SANITIZE_STRING);
-
-// =============================[ Save General settings ]=================================
-if (isset($_POST['general_save_changes'])) {
-if (!password_verify($general_current_pass_var,$_SESSION['Password'])) {
-    $general_save_result = "<p class='alertRed'>".lang('current_password_is_incorrect')."</p>";
-}else{
-    if (empty($fullname_var) or empty($username_var) or empty($email_var)) {
-        $general_save_result = "<p class='alertRed'>".lang('please_fill_required_fields')."</p>";
-    } else {
-         if (empty($new_password_var) AND empty($rewrite_new_password_var)) {
-            $new_password_var = $_SESSION['Password'];
-         }elseif ($new_password_var_field != $rewrite_new_password_var) {
-            $general_save_result = "<p class='alertRed'>".lang('new_password_doesnt_match_the_confirm_field')."</p>";
-            $stop = "1";
-        }
-        if(strpos($username_var, ' ') !== false || preg_match('/[\'^£$%&*()}{@#~?><>,.|=+¬-]/', $username_var) || !preg_match('/[A-Za-z0-9]+/', $username_var)) {
-            $general_save_result =  "
-            <ul class='alertRed' style='list-style:none;'>
-                <li><b>".lang('username_not_allowed')." :</b></li>
-                <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_1').".</li>
-                <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_2').".</li>
-                <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_3').".</li>
-                <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_4').".</li>
-                <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_5').".</li>
-            </ul>";
-            $stop = "1";  
-        }
-        $unExist = $conn->prepare("SELECT Username FROM signup WHERE Username =:username_var");
-        $unExist->bindParam(':username_var',$username_var,PDO::PARAM_STR);
-        $unExist->execute();
-        $unExistCount = $unExist->rowCount();
-        if ($unExistCount > 0) {
-           if ($username_var != $_SESSION['Username']) {
-           $general_save_result = "<p class='alertRed'>".lang('user_already_exist')."</p>";
-           $stop = "1";
-           }
-        }
-        $emExist = $conn->prepare("SELECT Email FROM signup WHERE Email =:email_var");
-        $emExist->bindParam(':email_var',$email_var,PDO::PARAM_STR);
-        $emExist->execute();
-        $emExistCount = $emExist->rowCount();
-        if ($emExistCount > 0) {
-           if ($email_var != $_SESSION['Email']) {
-           $general_save_result = "<p class='alertRed'>".lang('email_already_exist')."</p>";
-           $stop = "1";
-           }
-        }
-        if (!filter_var($email_var, FILTER_VALIDATE_EMAIL)) {
-            $general_save_result = "<p class='alertRed'>".lang('invalid_email_address')."</p>";
-            $stop = "1";
-        }
-         if ($stop != "1") {
-         $update_info_sql = "UPDATE signup SET Fullname= :fullname_var,Username= :username_var,Email= :email_var,Password= :new_password_var,gender= :gender_var WHERE username= :session_un";
-         $update_info = $conn->prepare($update_info_sql);
-         $update_info->bindParam(':fullname_var',$fullname_var,PDO::PARAM_STR);
-         $update_info->bindParam(':username_var',$username_var,PDO::PARAM_STR);
-         $update_info->bindParam(':email_var',$email_var,PDO::PARAM_STR);
-         $update_info->bindParam(':new_password_var',$new_password_var,PDO::PARAM_STR);
-         $update_info->bindParam(':gender_var',$gender_var,PDO::PARAM_STR);
-         $update_info->bindParam(':session_un',$session_un,PDO::PARAM_STR);
-         $update_info->execute();
-        if (isset($update_info)) {
-            $_SESSION['Fullname'] = $fullname_var;
-            $_SESSION['Username'] = $username_var;
-            $_SESSION['Email'] = $email_var;
-            $_SESSION['Password'] = $new_password_var;
-            $_SESSION['gender'] = $gender_var;
-            $general_save_result = "<p class='alertGreen'>".lang('changes_saved_seccessfully')."</p>";
+    error_reporting(E_ALL ^ E_NOTICE);
+    session_start();
+    include("config/connect.php");
+    include("includes/fetch_users_info.php");
+    include ("includes/time_function.php");
+    include("includes/country_name_function.php");
+    if(!isset($_SESSION['Username'])){
+        header("location: login.php");
+    }
+    $tc = filter_var(htmlentities($_GET['tc']),FILTER_SANITIZE_STRING);
+    // =============================[ prepare input variable's ]=================================
+    $session_un = $_SESSION['Username'];
+    
+    $fullname_var = filter_var(htmlentities($_POST['edit_fullname']),FILTER_SANITIZE_STRING);
+    $username_var = filter_var(htmlentities($_POST['edit_username']),FILTER_SANITIZE_STRING);
+    $email_var = filter_var(htmlentities($_POST['edit_email']),FILTER_SANITIZE_STRING);
+    // =========================== password hashinng ==================================
+    $new_password_var_field = filter_var(htmlentities($_POST['new_pass']),FILTER_SANITIZE_STRING);
+    $options = array(
+        'cost' => 12,
+    );
+    $new_password_var = password_hash($new_password_var_field, PASSWORD_BCRYPT, $options);
+    // ================================================================================
+    $rewrite_new_password_var = filter_var(htmlentities($_POST['rewrite_new_pass']),FILTER_SANITIZE_STRING);
+    
+    // filter gender as prefered language
+    $gender_var = filter_var(htmlentities($_POST['gender']),FILTER_SANITIZE_STRING);
+    if ($gender_var == lang('male')) {
+       $gender_var = "Male";
+    }elseif ($gender_var == lang('female')) {
+        $gender_var = "Female";
+    }
+    
+    $school_var = filter_var(htmlentities($_POST['edit_school']),FILTER_SANITIZE_STRING);
+    $work_var = filter_var(htmlentities($_POST['edit_work']),FILTER_SANITIZE_STRING);
+    $work0_var = filter_var(htmlentities($_POST['edit_work0']),FILTER_SANITIZE_STRING);
+    $country_var = filter_var(htmlentities($_POST['edit_country']),FILTER_SANITIZE_STRING);
+    $birthday_var = filter_var(htmlentities($_POST['bd_year']),FILTER_SANITIZE_NUMBER_INT)."/".filter_var(htmlentities($_POST['bd_month']),FILTER_SANITIZE_NUMBER_INT)."/".filter_var(htmlentities($_POST['bd_day']),FILTER_SANITIZE_NUMBER_INT);
+    $website_var = filter_var(htmlentities($_POST['edit_website']),FILTER_SANITIZE_STRING);
+    $bio_var = filter_var(htmlentities($_POST['edit_bio']),FILTER_SANITIZE_STRING);
+    
+    $language_var = filter_var(htmlspecialchars($_POST['edit_language']),FILTER_SANITIZE_STRING);
+    
+    $general_current_pass_var = filter_var(htmlentities($_POST['general_current_pass']),FILTER_SANITIZE_STRING);
+    $EditProfile_current_pass_var = filter_var(htmlentities($_POST['EditProfile_current_pass']),FILTER_SANITIZE_STRING);
+    $lang_current_pass_var = filter_var(htmlentities($_POST['lang_current_pass']),FILTER_SANITIZE_STRING);
+    $remeveA_current_pass_var = filter_var(htmlentities($_POST['removeA_current_pass']),FILTER_SANITIZE_STRING);
+    
+    // =============================[ Save General settings ]=================================
+    if (isset($_POST['general_save_changes'])) {
+        if (!password_verify($general_current_pass_var,$_SESSION['Password'])) {
+            $general_save_result = "<p class='alertRed'>".lang('current_password_is_incorrect')."</p>";
+        }else{
+        if (empty($fullname_var) or empty($username_var) or empty($email_var)) {
+            $general_save_result = "<p class='alertRed'>".lang('please_fill_required_fields')."</p>";
         } else {
-            $general_save_result = "<p class='alertRed'>".lang('errorSomthingWrong')."</p>";
-        }
+            if (empty($new_password_var) AND empty($rewrite_new_password_var)) {
+                $new_password_var = $_SESSION['Password'];
+            }elseif ($new_password_var_field != $rewrite_new_password_var) {
+                $general_save_result = "<p class='alertRed'>".lang('new_password_doesnt_match_the_confirm_field')."</p>";
+                $stop = "1";
+            }
+            if(strpos($username_var, ' ') !== false || preg_match('/[\'^£$%&*()}{@#~?><>,.|=+¬-]/', $username_var) || !preg_match('/[A-Za-z0-9]+/', $username_var)) {
+                $general_save_result =  "
+                <ul class='alertRed' style='list-style:none;'>
+                    <li><b>".lang('username_not_allowed')." :</b></li>
+                    <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_1').".</li>
+                    <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_2').".</li>
+                    <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_3').".</li>
+                    <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_4').".</li>
+                    <li><span class='fa fa-times'></span> ".lang('signup_username_should_be_5').".</li>
+                </ul>";
+                $stop = "1";  
+            }
+            $unExist = $conn->prepare("SELECT Username FROM signup WHERE Username =:username_var");
+            $unExist->bindParam(':username_var',$username_var,PDO::PARAM_STR);
+            $unExist->execute();
+            $unExistCount = $unExist->rowCount();
+            if ($unExistCount > 0) {
+                if ($username_var != $_SESSION['Username']) {
+                $general_save_result = "<p class='alertRed'>".lang('user_already_exist')."</p>";
+                $stop = "1";
+                }
+            }
+            $emExist = $conn->prepare("SELECT Email FROM signup WHERE Email =:email_var");
+            $emExist->bindParam(':email_var',$email_var,PDO::PARAM_STR);
+            $emExist->execute();
+            $emExistCount = $emExist->rowCount();
+            if ($emExistCount > 0) {
+                if ($email_var != $_SESSION['Email']) {
+                $general_save_result = "<p class='alertRed'>".lang('email_already_exist')."</p>";
+                $stop = "1";
+                }
+            }
+            if (!filter_var($email_var, FILTER_VALIDATE_EMAIL)) {
+                $general_save_result = "<p class='alertRed'>".lang('invalid_email_address')."</p>";
+                $stop = "1";
+            }
+            if ($stop != "1") {
+            $update_info_sql = "UPDATE signup SET Fullname= :fullname_var,Username= :username_var,Email= :email_var,Password= :new_password_var,gender= :gender_var WHERE username= :session_un";
+            $update_info = $conn->prepare($update_info_sql);
+            $update_info->bindParam(':fullname_var',$fullname_var,PDO::PARAM_STR);
+            $update_info->bindParam(':username_var',$username_var,PDO::PARAM_STR);
+            $update_info->bindParam(':email_var',$email_var,PDO::PARAM_STR);
+            $update_info->bindParam(':new_password_var',$new_password_var,PDO::PARAM_STR);
+            $update_info->bindParam(':gender_var',$gender_var,PDO::PARAM_STR);
+            $update_info->bindParam(':session_un',$session_un,PDO::PARAM_STR);
+            $update_info->execute();
+            if (isset($update_info)) {
+                $_SESSION['Fullname'] = $fullname_var;
+                $_SESSION['Username'] = $username_var;
+                $_SESSION['Email'] = $email_var;
+                $_SESSION['Password'] = $new_password_var;
+                $_SESSION['gender'] = $gender_var;
+                $general_save_result = "<p class='alertGreen'>".lang('changes_saved_seccessfully')."</p>";
+            } else {
+                $general_save_result = "<p class='alertRed'>".lang('errorSomthingWrong')."</p>";
+            }
         }
     }
 }
