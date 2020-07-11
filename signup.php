@@ -23,9 +23,9 @@
     <head>
         <title><? echo lang('create_new_account'); ?> | Sargga</title>
         <meta charset="UTF-8">
-        <meta name="description" content="Wallstant is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
+        <meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
         <meta name="keywords" content="signup,social network,social media,Wallstant,meet,free platform">
-        <meta name="author" content="Munaf Aqeel Mahdi - Lucas T">
+        <meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include "includes/head_imports_main.php";?>
     </head>
