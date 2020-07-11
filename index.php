@@ -65,39 +65,39 @@
         </div>
 
         <script type="text/javascript">
-        function loginUser(){
-            var username = document.getElementById("un").value;
-            var password = document.getElementById("pd").value;
-            $.ajax({
-                type:'POST',
-                url:'includes/login_signup_codes.php',
-                data:{'req':'login_code','un':username,'pd':password},
-                beforeSend:function(){
-                    $('.login_signup_btn1').hide();
-                    $('#login_wait').html("<? echo lang('loading'); ?>...");
-            },
-            success:function(data){
-                $('#login_wait').html(data);
-                if (data == "Welcome...") {
-                    $('#login_wait').html("<p class='alertGreen'><? echo lang('welcome'); ?>..</p>");
-                    setTimeout(' window.location.href = "home"; ',2000);
-            }else{
-                $('.login_signup_btn1').show();
+            function loginUser(){
+                var username = document.getElementById("un").value;
+                var password = document.getElementById("pd").value;
+                $.ajax({
+                    type:'POST',
+                    url:'includes/login_signup_codes.php',
+                    data:{'req':'login_code','un':username,'pd':password},
+                    beforeSend:function(){
+                        $('.login_signup_btn1').hide();
+                        $('#login_wait').html("<? echo lang('loading'); ?>...");
+                    },
+                    success:function(data){
+                        $('#login_wait').html(data);
+                        if (data == "Welcome...") {
+                            $('#login_wait').html("<p class='alertGreen'><? echo lang('welcome'); ?>..</p>");
+                            setTimeout(' window.location.href = "home"; ',2000);
+                    }else{
+                        $('.login_signup_btn1').show();
+                    }
+         },
+            error:function(err){
+                alert(err);
+         }
+         });
+        }
+        $('#loginFunCode').click(function(){
+        loginUser();
+        });
+        $(".login_signup_textfield").keypress( function (e) {
+            if (e.keyCode == 13) {
+                loginUser();
             }
-        },
-        error:function(err){
-            alert(err);
-        }
-   });
-    }
-    $('#loginFunCode').click(function(){
-    loginUser();
-    });
-    $(".login_signup_textfield").keypress( function (e) {
-        if (e.keyCode == 13) {
-            loginUser();
-        }
-    });
+        });
         </script>
     </body>
 </html>
