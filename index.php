@@ -21,18 +21,18 @@
 ?>
 <html dir="<? echo lang('html_dir'); ?>">
     <head>
-        <title><? echo lang('welcome'); ?> | Wallstant</title>
+        <title><? echo lang('welcome'); ?> | Sargga</title>
         <meta charset="UTF-8">
-        <meta name="description" content="Wallstant is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-        <meta name="keywords" content="homepage,main,login,social network,social media,Wallstant,meet,free platform">
-        <meta name="author" content="Munaf Aqeel Mahdi">
+        <meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
+        <meta name="keywords" content="homepage,main,login,social network,social media,Wallstant,meet,free platform,Sargga">
+        <meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include "includes/head_imports_main.php";?>
     </head>
     <body class="login_signup_body">
     <!--============[ Nav bar ]============-->
         <div class="login_signup_navbar">
-                <a href="index" class="login_signup_navbarLinks">Wallstant</a>
+                <a href="index" class="login_signup_navbarLinks">Sargga</a>
                 <a href="#" class="login_signup_navbarLinks"><? echo lang('help'); ?></a>
                 <a href="#" class="login_signup_navbarLinks"><? echo lang('terms'); ?></a>
                 <a href="#" class="login_signup_navbarLinks"><? echo lang('privacyPolicy'); ?></a>
@@ -43,7 +43,7 @@
         </div>
         <!--============[ main contains ]============-->
         <div class="login_signup_box">
-        <h3 align="center"><? echo lang('welcome_to'); ?> Wallstant</h3>
+        <h3 align="center"><? echo lang('welcome_to'); ?> Sargga</h3>
         <p align="center" style="color: #999; margin-bottom: 25px;"><? echo lang('wallstant_main_string'); ?>.</p>
             <div style="display: flex;">
                 <div style="width: 100%;">
@@ -64,40 +64,40 @@
                 <a href="?lang=english">English</a> &bull; <a href="?lang=العربية">العربية</a>
         </div>
 
-<script type="text/javascript">
-function loginUser(){
-var username = document.getElementById("un").value;
-var password = document.getElementById("pd").value;
-$.ajax({
-type:'POST',
-url:'includes/login_signup_codes.php',
-data:{'req':'login_code','un':username,'pd':password},
-beforeSend:function(){
-$('.login_signup_btn1').hide();
-$('#login_wait').html("<? echo lang('loading'); ?>...");
-},
-success:function(data){
-$('#login_wait').html(data);
-if (data == "Welcome...") {
-    $('#login_wait').html("<p class='alertGreen'><? echo lang('welcome'); ?>..</p>");
-    setTimeout(' window.location.href = "home"; ',2000);
-}else{
-    $('.login_signup_btn1').show();
-}
-},
-error:function(err){
-alert(err);
-}
-});
-}
-$('#loginFunCode').click(function(){
-loginUser();
-});
-$(".login_signup_textfield").keypress( function (e) {
-    if (e.keyCode == 13) {
-        loginUser();
+        <script type="text/javascript">
+        function loginUser(){
+            var username = document.getElementById("un").value;
+            var password = document.getElementById("pd").value;
+            $.ajax({
+                type:'POST',
+                url:'includes/login_signup_codes.php',
+                data:{'req':'login_code','un':username,'pd':password},
+                beforeSend:function(){
+                    $('.login_signup_btn1').hide();
+                    $('#login_wait').html("<? echo lang('loading'); ?>...");
+            },
+            success:function(data){
+                $('#login_wait').html(data);
+                if (data == "Welcome...") {
+                    $('#login_wait').html("<p class='alertGreen'><? echo lang('welcome'); ?>..</p>");
+                    setTimeout(' window.location.href = "home"; ',2000);
+            }else{
+                $('.login_signup_btn1').show();
+            }
+        },
+        error:function(err){
+            alert(err);
+        }
+   });
     }
-});
-</script>
-</body>
+    $('#loginFunCode').click(function(){
+    loginUser();
+    });
+    $(".login_signup_textfield").keypress( function (e) {
+        if (e.keyCode == 13) {
+            loginUser();
+        }
+    });
+        </script>
+    </body>
 </html>
