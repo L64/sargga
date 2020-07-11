@@ -1,107 +1,107 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
-session_start();
-$myId = $_SESSION['id'];
-$myPhoto = $_SESSION['Userphoto'];
-include("../config/connect.php");
-include("../includes/fetch_users_info.php");
-include("../includes/time_function.php");
-include("../includes/country_name_function.php");
-include("../includes/num_k_m_count.php");
-if(!isset($_SESSION['Username'])){
-    header("location: ../index");
-}
-// ============[ This 'page' file is for other website pages as you can see in 'switch' ]==============
-$page = filter_var(htmlspecialchars(htmlentities($_GET['p'])) , FILTER_SANITIZE_STRING); 
-switch ($page) {
-case 'supportbox':
-$pagename = "Support box";
-break;
-case 'report':
-$pagename = "Report a problem";
-break;
-default:
-$pagename = "404 Not found!";
-break;
-}
+	error_reporting(E_ALL ^ E_NOTICE);
+	session_start();
+	$myId = $_SESSION['id'];
+	$myPhoto = $_SESSION['Userphoto'];
+	include("../config/connect.php");
+	include("../includes/fetch_users_info.php");
+	include("../includes/time_function.php");
+	include("../includes/country_name_function.php");
+	include("../includes/num_k_m_count.php");
+	if(!isset($_SESSION['Username'])){
+	    header("location: ../index");
+	}
+	// ============[ This 'page' file is for other website pages as you can see in 'switch' ]==============
+	$page = filter_var(htmlspecialchars(htmlentities($_GET['p'])) , FILTER_SANITIZE_STRING); 
+	switch ($page) {
+		case 'supportbox':
+		$pagename = "Support box";
+		break;
+		case 'report':
+		$pagename = "Report a problem";
+		break;
+		default:
+		$pagename = "404 Not found!";
+		break;
+	}
 ?>
 <html dir="<?php echo lang('html_dir'); ?>">
-<head>
-    <title><?php echo $pagename; ?> | Wallstant</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="Wallstant is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-    <meta name="keywords" content="social network,social media,Wallstant,meet,free platform">
-    <meta name="author" content="Munaf Aqeel Mahdi">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "../includes/head_imports_main.php";?>
-    </script>
-</head>
-<body onload="fetchPosts_DB('user')">
-<!--=============================[ NavBar ]========================================-->
-<?php include "../includes/navbar_main.php"; ?>
-<!--=============================[ NavBar ]========================================-->
-<?php
-switch ($page) {
-case 'supportbox':
-?>
-<!--=============================[ support box ]========================================-->
-<div align="center" style="margin-top: 54px; padding: 3%;">
-	<div align="left">
-	<div class="contentBox" style="margin-bottom: 15px;"><p style="text-align:<?php echo lang('textAlign'); ?>;margin: 0px;padding: 10px 15px;"><span style="padding: 10px 15px;border-bottom: 3px solid #2196f3;"><?php echo lang('supportBox'); ?></span></p></div>
-		<div style="display: flex; max-width: 830px; margin: auto;text-align:<?php echo lang('textAlign'); ?>;">
-		<div style="width: 100%; margin: 0px 15px;">
+	<head>
+		<title><?php echo $pagename; ?> | Sargga</title>
+	    	<meta charset="UTF-8">
+    		<meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
+    		<meta name="keywords" content="social network,social media,Wallstant,meet,free platform,Sargga">
+    		<meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    		<?php include "../includes/head_imports_main.php";?>
+    		</script>
+	</head>
+	<body onload="fetchPosts_DB('user')">
+		<!--=============================[ NavBar ]========================================-->
+		<?php include "../includes/navbar_main.php"; ?>
+		<!--=============================[ NavBar ]========================================-->
 		<?php
-		$getReports = $conn->prepare("SELECT * FROM supportbox WHERE from_id =:myId ORDER BY r_time DESC");
-		$getReports->bindParam(':myId',$myId,PDO::PARAM_INT);
-		$getReports->execute();
-		$countReports = $getReports->rowCount();
-		if($countReports < 1){echo "<div style='width: 100%;margin-bottom: 15px;padding:15px;color:#999;' class='contentBox'>".lang('nothingToShow')."</div>";}
-		while ($r_row = $getReports->fetch(PDO::FETCH_ASSOC)) {
-			$r_id = $r_row['r_id'];
-			$from_id = $r_row['from_id'];
-			$for_id = $r_row['for_id'];
-			$r_type = $r_row['r_type'];
-			$subject = $r_row['subject'];
-			$report = $r_row['report'];
-			$r_time = $r_row['r_time'];
-			$r_time = time_ago($r_time);
-			$r_replay = $r_row['r_replay'];
-			$r_replay_time = $r_row['r_replay_time'];
-			$r_replay_time = time_ago($r_replay_time);
-			$status = $r_row['status'];
-			if ($status == "0") {
-				$r_status = "<span class='sb_caseOpen'>".lang('open')."</span>";
-			}elseif ($status == "1") {
-				$r_status = "<span class='sb_caseClosed'>".lang('closed')."</span>";
-			}
-			switch ($r_type) {
-				case 'post':
-					$subject = lang('you_anonymously_reported_a')." <a href='../posts/post?pid=$for_id'>".lang('post')."</a>.";
-					$report = lang('you_anonymously_reported_a')." <a href='../posts/post?pid=$for_id'>".lang('post')."</a>.";
-				break;
-				case 'problem':
-					$subject = $subject;
-					$report = $report;
-				break;
-			}
+			switch ($page) {
+			case 'supportbox':
 		?>
-		<!--===============[ Report ]===============-->
-		<div class="contentBox" id="report_<?php echo $r_id; ?>" style="width: 500px;margin-bottom: 15px;">
-			<div id="viewreport" onclick="viewreport('<?php echo $r_id; ?>')">
-				<div style="padding: 5px;"><img src="../imgs/main_icons/1f4e8.png" style="width: 40px;height:40px;" /></div>
-				<div style="padding: 5px;"><p style="margin:0px;word-break: break-word;"><?php echo $subject." ".$r_status; ?><br/>
-				<span style="color: #999;font-size: 11px;"><?php echo lang('click_to_view_your_report'); ?></span></p></div>
-			</div>
-			<div id="myReport_<?php echo $r_id; ?>" style="display: none; background: #f6f7f9; border-bottom: 1px solid #ddd;">
-				<div style="display: flex;">
-				<div style="padding: 5px;"><div style="width: 40px;height: 40px;overflow: hidden;background: white;border-radius: 100px;"><img src="../imgs/user_imgs/<?php echo $myPhoto ?>"  style="width: auto;height: 100%;" /></div></div>
-				<div style="padding: 5px;">
-					<p><b><?php echo lang('your_report'); ?></b><br/><span style="color: #999;font-size: 11px;"><?php echo $r_time; ?></span></p>
-					<p style="font-size: 13px;word-break: break-word;">
-					<?php echo nl2br($report); ?>
-					</p>
-					<p id="delR_<?php echo $r_id; ?>"><a href="javascript:void(0);" onclick="deleteReport('<?php echo $r_id; ?>')"><?php echo lang('delete'); ?></a></p>
+		<!--=============================[ support box ]========================================-->
+		<div align="center" style="margin-top: 54px; padding: 3%;">
+			<div align="left">
+			<div class="contentBox" style="margin-bottom: 15px;"><p style="text-align:<?php echo lang('textAlign'); ?>;margin: 0px;padding: 10px 15px;"><span style="padding: 10px 15px;border-bottom: 3px solid #2196f3;"><?php echo lang('supportBox'); ?></span></p></div>
+			<div style="display: flex; max-width: 830px; margin: auto;text-align:<?php echo lang('textAlign'); ?>;">
+			<div style="width: 100%; margin: 0px 15px;">
+			<?php
+				$getReports = $conn->prepare("SELECT * FROM supportbox WHERE from_id =:myId ORDER BY r_time DESC");
+				$getReports->bindParam(':myId',$myId,PDO::PARAM_INT);
+				$getReports->execute();
+				$countReports = $getReports->rowCount();
+				if($countReports < 1){echo "<div style='width: 100%;margin-bottom: 15px;padding:15px;color:#999;' class='contentBox'>".lang('nothingToShow')."</div>";}
+				while ($r_row = $getReports->fetch(PDO::FETCH_ASSOC)) {
+					$r_id = $r_row['r_id'];
+					$from_id = $r_row['from_id'];
+					$for_id = $r_row['for_id'];
+					$r_type = $r_row['r_type'];
+					$subject = $r_row['subject'];
+					$report = $r_row['report'];
+					$r_time = $r_row['r_time'];
+					$r_time = time_ago($r_time);
+					$r_replay = $r_row['r_replay'];
+					$r_replay_time = $r_row['r_replay_time'];
+					$r_replay_time = time_ago($r_replay_time);
+					$status = $r_row['status'];
+					if ($status == "0") {
+						$r_status = "<span class='sb_caseOpen'>".lang('open')."</span>";
+					}elseif ($status == "1") {
+						$r_status = "<span class='sb_caseClosed'>".lang('closed')."</span>";
+					}
+					switch ($r_type) {
+						case 'post':
+							$subject = lang('you_anonymously_reported_a')." <a href='../posts/post?pid=$for_id'>".lang('post')."</a>.";
+							$report = lang('you_anonymously_reported_a')." <a href='../posts/post?pid=$for_id'>".lang('post')."</a>.";
+						break;
+						case 'problem':
+							$subject = $subject;
+							$report = $report;
+						break;
+					}
+			?>
+			<!--===============[ Report ]===============-->
+			<div class="contentBox" id="report_<?php echo $r_id; ?>" style="width: 500px;margin-bottom: 15px;">
+				<div id="viewreport" onclick="viewreport('<?php echo $r_id; ?>')">
+					<div style="padding: 5px;"><img src="../imgs/main_icons/1f4e8.png" style="width: 40px;height:40px;" /></div>
+					<div style="padding: 5px;"><p style="margin:0px;word-break: break-word;"><?php echo $subject." ".$r_status; ?><br/>
+					<span style="color: #999;font-size: 11px;"><?php echo lang('click_to_view_your_report'); ?></span></p></div>
 				</div>
+				<div id="myReport_<?php echo $r_id; ?>" style="display: none; background: #f6f7f9; border-bottom: 1px solid #ddd;">
+					<div style="display: flex;">
+					<div style="padding: 5px;"><div style="width: 40px;height: 40px;overflow: hidden;background: white;border-radius: 100px;"><img src="../imgs/user_imgs/<?php echo $myPhoto ?>"  style="width: auto;height: 100%;" /></div></div>
+					<div style="padding: 5px;">
+						<p><b><?php echo lang('your_report'); ?></b><br/><span style="color: #999;font-size: 11px;"><?php echo $r_time; ?></span></p>
+						<p style="font-size: 13px;word-break: break-word;">
+						<?php echo nl2br($report); ?>
+						</p>
+						<p id="delR_<?php echo $r_id; ?>"><a href="javascript:void(0);" onclick="deleteReport('<?php echo $r_id; ?>')"><?php echo lang('delete'); ?></a></p>
+					</div>
 				</div>
 			</div> 
 			<?php if(!empty($r_replay)){ ?>
@@ -129,8 +129,8 @@ case 'supportbox':
 	</div>
 </div>
 <?php
-break;
-case 'report':
+	break;
+	case 'report':
 ?>
 <!--=============================[ report a problem ]========================================-->
 <div align="center" style="margin-top: 54px; padding: 3%;">
