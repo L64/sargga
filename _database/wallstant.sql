@@ -2,7 +2,7 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
+-- Host: sql303.epizy.com
 -- Generation Time: Sep 14, 2019 at 03:42 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
