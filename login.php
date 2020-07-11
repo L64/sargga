@@ -1,38 +1,38 @@
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
-session_start();
-if(isset($_SESSION['Username'])){
-    header("location: home");
-}
-$getLang = trim(filter_var(htmlentities($_GET['lang']),FILTER_SANITIZE_STRING));
-if (!empty($getLang)) {
-$_SESSION['language'] = $getLang;
-}
-// ========================= config the languages ================================
-error_reporting(E_NOTICE ^ E_ALL);
-if (is_file('home.php')){
-    $path = "";
-}elseif (is_file('../home.php')){
-    $path =  "../";
-}elseif (is_file('../../home.php')){
-    $path =  "../../";
-}
-include_once $path."langs/set_lang.php";
+    error_reporting(E_ALL ^ E_NOTICE);
+    session_start();
+    if(isset($_SESSION['Username'])){
+        header("location: home");
+    }
+    $getLang = trim(filter_var(htmlentities($_GET['lang']),FILTER_SANITIZE_STRING));
+    if (!empty($getLang)) {
+    $_SESSION['language'] = $getLang;
+    }
+    // ========================= config the languages ================================
+    error_reporting(E_NOTICE ^ E_ALL);
+    if (is_file('home.php')){
+        $path = "";
+    }elseif (is_file('../home.php')){
+        $path =  "../";
+    }elseif (is_file('../../home.php')){
+        $path =  "../../";
+    }
+    include_once $path."langs/set_lang.php";
 ?>
 <html dir="<? echo lang('html_dir'); ?>">
-<head>
-    <title><? echo lang('login'); ?> | Wallstant</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="Wallstant is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-    <meta name="keywords" content="login,social network,social media,Wallstant,meet,free platform">
-    <meta name="author" content="Munaf Aqeel Mahdi">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "includes/head_imports_main.php";?>
-</head>
+    <head>
+        <title><? echo lang('login'); ?> | Sargga</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
+        <meta name="keywords" content="login,social network,social media,Wallstant,meet,free platform,Sargga">
+        <meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php include "includes/head_imports_main.php";?>
+    </head>
     <body class="login_signup_body">
     <!--============[ Nav bar ]============-->
         <div class="login_signup_navbar">
-                <a href="index" class="login_signup_navbarLinks">Wallstant</a>
+                <a href="index" class="login_signup_navbarLinks">Sargga</a>
                 <a href="#" class="login_signup_navbarLinks"><? echo lang('help'); ?></a>
                 <a href="#" class="login_signup_navbarLinks"><? echo lang('terms'); ?></a>
                 <a href="#" class="login_signup_navbarLinks"><? echo lang('privacyPolicy'); ?></a>
