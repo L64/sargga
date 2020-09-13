@@ -21,21 +21,21 @@
 ?>
 <html dir="<? echo lang('html_dir'); ?>">
     <head>
-        <title><? echo lang('welcome'); ?> | Sargga</title>
+        <title><? echo lang('welcome'); ?> | Lcibr</title>
         <meta charset="UTF-8">
-        <meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-        <meta name="keywords" content="homepage,main,login,social network,social media,Wallstant,meet,free platform,Sargga">
-        <meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
+        <meta name="description" content="Lcibr is an irani-latinoamerican social network platform oriented to technology, but open to all, for now the registers are only for the people of our Discord.">
+        <meta name="keywords" content="homepage,main,login,social network,social media,Wallstant,meet,free platform,Sargga,Lciber">
+        <meta name="author" content="Munaf Aqeel Mahdi,Lucas64,Ciber Team">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include "includes/head_imports_main.php";?>
     </head>
     <body class="login_signup_body">
     <!--============[ Nav bar ]============-->
         <div class="login_signup_navbar">
-                <a href="index" class="login_signup_navbarLinks">Sargga</a>
-                <a href="#" class="login_signup_navbarLinks"><? echo lang('help'); ?></a>
-                <a href="#" class="login_signup_navbarLinks"><? echo lang('terms'); ?></a>
-                <a href="#" class="login_signup_navbarLinks"><? echo lang('privacyPolicy'); ?></a>
+                <a href="index" class="login_signup_navbarLinks">ʟ𝗰𝗶𝗯𝗿</a>
+                <a href="https://titanembeds.com/embed/741660184228921386" class="login_signup_navbarLinks"><? echo lang('help'); ?></a>
+                <a href="terms" class="login_signup_navbarLinks"><? echo lang('terms'); ?></a>
+                <a href="privacy" class="login_signup_navbarLinks"><? echo lang('privacyPolicy'); ?></a>
                 <div style="float: <? echo lang('float2'); ?>;">
                     <a href="login" class="login_signup_btn1"><? echo lang('login'); ?></a>
                     <a href="signup" class="login_signup_btn2"><? echo lang('signup'); ?></a>
@@ -43,7 +43,7 @@
         </div>
         <!--============[ main contains ]============-->
         <div class="login_signup_box">
-        <h3 align="center"><? echo lang('welcome_to'); ?> Sargga</h3>
+        <h3 align="center"><? echo lang('welcome_to'); ?> ʟ𝗰𝗶𝗯𝗿 ᴘʀᴇᴀᴘʟʜᴀ</h3>
         <p align="center" style="color: #999; margin-bottom: 25px;"><? echo lang('wallstant_main_string'); ?>.</p>
             <div style="display: flex;">
                 <div style="width: 100%;">
@@ -99,5 +99,6 @@
             }
         });
         </script>
+        <?php include "includes/footer.php" ?>
     </body>
 </html>
