@@ -101,7 +101,7 @@ function lang($txt){
     'onlyUcanCThis' => 'Only you can see this',
     'save' => 'Save',
     'cancel' => 'Cancel',
-    'uploadPhoto' => 'Uplaod',
+    'uploadPhoto' => 'Upload',
     'addToFavoritePages' => 'Add to favorite pages',
     'unFavoritePage' => 'Unfavorite page',
     'report' => 'Report',
@@ -324,7 +324,7 @@ function lang($txt){
     'signup_username_should_be_5' => 'White spaces not allowed between words',
     'username_not_allowed' => 'Error in username',
     'username_not_exists' => 'User name not exists! No User name like that you entered',
-    'friends' => 'Friedns',
+    'friends' => 'Friends',
     'requests' => 'Requests',
     'continue_reading' => 'Continue reading',
 
