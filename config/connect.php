@@ -1,8 +1,8 @@
 <?php
-	$servername = "sql303.epizy.com";
-	$username = "epiz_26239642";
-	$password = "the bigbigbig nothing social network";
-	$dbname = "epiz_26239642_home1data";
+	$servername = "localhost";
+	$username = "";
+	$password = "";
+	$dbname = "";
 	
 	try 
 		{
