@@ -11,7 +11,6 @@
         <li>Configure website name at config > webinfo.php</li>
 	<li>Enjoy it.</li>
 </ol>
-<hr>
 
 ## Support
 
