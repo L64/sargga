@@ -20,4 +20,4 @@ The project Sargga is being developed right now in it's official S.O., this code
 ## Support
 1. Wiki?
 2. [Lcibr (Discord server) (is in spanish)](https://inv.wtf/ciber)
-<li>[Enter with Titan Embeds](https://titanembeds.com/embed/741660184228921386)</li>
+<li><a href="https://titanembeds.com/embed/741660184228921386">Enter with Titan Embeds</a></li>
