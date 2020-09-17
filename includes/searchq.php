@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../config/connect.php');
+include "../config/webinfo.php";
 if($_POST){
 $q = htmlentities($_POST['search_user'], ENT_QUOTES);
 $dircheckPath = htmlentities($_POST['dircheckPath'], ENT_QUOTES);
@@ -33,7 +34,7 @@ if ($verify == "1") {
 }
 
 if ($country == "") {
-	$under_fullname = "@".$username;
+	$under_fullname = $prefix.$username;
 }else{
 if($work0 == ""){
      $under_fullname = $country;
