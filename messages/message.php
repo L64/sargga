@@ -1,26 +1,26 @@
 <?php
-	error_reporting(E_ALL ^ E_NOTICE);
-	session_start();
-	include("../config/connect.php");
-	include("../includes/fetch_users_info.php");
-	include ("../includes/time_function.php");
-	if(!isset($_SESSION['Username'])){
-    		header("location: ../index");
-	}
-	
-	$msgId = trim(filter_var(htmlentities($_GET['id'])),FILTER_SANITIZE_NUMBER_INT);
+error_reporting(E_ALL ^ E_NOTICE);
+session_start();
+include("../config/connect.php");
+include("../includes/fetch_users_info.php");
+include ("../includes/time_function.php");
+if(!isset($_SESSION['Username'])){
+    header("location: ../index");
+}
+
+$msgId = trim(filter_var(htmlentities($_GET['id'])),FILTER_SANITIZE_NUMBER_INT);
 ?>
 <html dir="<?php echo lang('html_dir'); ?>">
-	<head>
-    		<title><? echo lang('messages'); ?> | Sargga</title>
-    		<meta charset="UTF-8">
-    		<meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-    		<meta name="keywords" content="Notifications,social network,social media,Wallstant,meet,free platform,Sargga">
-    		<meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
-    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    		<?php include "../includes/head_imports_main.php";?>
-	</head>
-	<body>
+<head>
+    <title><? echo lang('messages'); ?> | Wallstant</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Wallstant is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
+    <meta name="keywords" content="Notifications,social network,social media,Wallstant,meet,free platform">
+    <meta name="author" content="Munaf Aqeel Mahdi">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include "../includes/head_imports_main.php";?>
+</head>
+<body>
 <!--=============================[ NavBar ]========================================-->
 <?php include "../includes/navbar_main.php"; ?>
 <!--=============================[ Div_Container ]========================================-->
@@ -89,71 +89,72 @@
 <!--===============================[ End ]==========================================-->
 <?php include "../includes/endJScodes.php"; ?>
 <script type="text/javascript">
-	// on click on any user in contacts do this
-	$('#m_contacts').on("click",".mC_userLink",function(){
-		$('.mCol2_title').attr("data-user",$(this).attr('data-muid'));
-		mUserProfile($(this).attr('data-muid'),"click");
-		mFetchMsgs($(this).attr('data-muid'),"click");
-	});
-	// on click on any user in searched contacts do this
-	$('#m_contacts_search').on("click",".mC_userLink",function(){
-		$('.mCol2_title').attr("data-user",$(this).attr('data-muid'));
-		mUserProfile($(this).attr('data-muid'),"click");
-		mFetchMsgs($(this).attr('data-muid'),"click");
-	});
-	// on send text field (textarea) keypress do this
-	$('#mSendField').keypress(function (e) {
-    		if (e.keyCode == 13) {
-    			// on [shift + enter] pressed do this
-        		if (e.shiftKey) {
-            			return true;
-        		}
-        		// on enter button pressed do this
-        	mSendField($('.mCol2_title').attr('data-user'));
-        	mRemoveTyping($('.mCol2_title').attr('data-user'));
-        	this.style.height = '40px';
-        	$('.mCol2_msgs').css({'bottom':this.style.height});
-        	return false;
-    		}
-	});
-	// auto hight for send text filed (textarea) code
-	$('#mSendField').each(function () {
-  	this.setAttribute('style', 'padding-<? echo lang('float2'); ?>:38px;padding-<? echo lang('float'); ?>:8px;height:40px;overflow-y:hidden;text-align:'+"<?php echo lang('textAlign'); ?>"+';');
-	}).on('input', function () {
-  		this.style.height = '40px';
-  		this.style.height = (this.scrollHeight) + 'px';
-  		$('.mCol2_msgs').css({'bottom':this.style.height});
-	});
-	// on search contacts field [key up] do this
-	$('#mU_search').keyup(function(){
-    		mSearchUser();
-	});
-	// load contacts on page load
-	mLoadUsers();
-	// refresh contacts details every 5 sec
-	setInterval(mLoadUsers, 5000);
-	// check if user selected do code in [else] or not do code in first of [if] statement
-	function getIn2Sec(){
-		if ($('.mCol2_title').attr('data-user') == "0") {	
-		}else{
-			mUserProfile($('.mCol2_title').attr('data-user'),"timer");
-			mFetchMsgs($('.mCol2_title').attr('data-user'),"timer");
-		}
-	}
-	// refresh [getIn2Sec] function ^^^
-	setInterval(getIn2Sec, 2000);
-	// typing a message from a user [typing codes]
-	var lastTypedTime = new Date(0);
-	function mCheckTyping() {
-    		if (!$('#mSendField').is(':focus') || $('#mSendField').val() == '' || new Date().getTime() - lastTypedTime.getTime() > 5000) {
-        		mRemoveTyping($('.mCol2_title').attr('data-user'));
-    		} else {
-        		mSetTyping($('.mCol2_title').attr('data-user'));
-    		}
-	}
-	setInterval(mCheckTyping, 100);
-	$('#mSendField').keypress(function(){lastTypedTime = new Date();});
-	$('#mSendField').blur(mCheckTyping);
-		</script>
-	</body>
+// on click on any user in contacts do this
+$('#m_contacts').on("click",".mC_userLink",function(){
+	$('.mCol2_title').attr("data-user",$(this).attr('data-muid'));
+	mUserProfile($(this).attr('data-muid'),"click");
+	mFetchMsgs($(this).attr('data-muid'),"click");
+});
+// on click on any user in searched contacts do this
+$('#m_contacts_search').on("click",".mC_userLink",function(){
+	$('.mCol2_title').attr("data-user",$(this).attr('data-muid'));
+	mUserProfile($(this).attr('data-muid'),"click");
+	mFetchMsgs($(this).attr('data-muid'),"click");
+});
+// on send text field (textarea) keypress do this
+$('#mSendField').keypress(function (e) {
+    if (e.keyCode == 13) {
+    	// on [shift + enter] pressed do this
+        if (e.shiftKey) {
+            return true;
+        }
+        // on enter button pressed do this
+        mSendField($('.mCol2_title').attr('data-user'));
+        mRemoveTyping($('.mCol2_title').attr('data-user'));
+        this.style.height = '40px';
+        $('.mCol2_msgs').css({'bottom':this.style.height});
+        return false;
+    }
+});
+// auto hight for send text filed (textarea) code
+$('#mSendField').each(function () {
+  this.setAttribute('style', 'padding-<? echo lang('float2'); ?>:38px;padding-<? echo lang('float'); ?>:8px;height:40px;overflow-y:hidden;text-align:'+"<?php echo lang('textAlign'); ?>"+';');
+}).on('input', function () {
+  this.style.height = '40px';
+  this.style.height = (this.scrollHeight) + 'px';
+  $('.mCol2_msgs').css({'bottom':this.style.height});
+});
+// on search contacts field [key up] do this
+$('#mU_search').keyup(function(){
+    mSearchUser();
+});
+// load contacts on page load
+mLoadUsers();
+// refresh contacts details every 5 sec
+setInterval(mLoadUsers, 5000);
+// check if user selected do code in [else] or not do code in first of [if] statement
+function getIn2Sec(){
+if ($('.mCol2_title').attr('data-user') == "0") {	
+}else{
+	mUserProfile($('.mCol2_title').attr('data-user'),"timer");
+	mFetchMsgs($('.mCol2_title').attr('data-user'),"timer");
+}
+}
+// refresh [getIn2Sec] function ^^^
+setInterval(getIn2Sec, 2000);
+// typing a message from a user [typing codes]
+var lastTypedTime = new Date(0);
+function mCheckTyping() {
+    if (!$('#mSendField').is(':focus') || $('#mSendField').val() == '' || new Date().getTime() - lastTypedTime.getTime() > 5000) {
+        mRemoveTyping($('.mCol2_title').attr('data-user'));
+    } else {
+        mSetTyping($('.mCol2_title').attr('data-user'));
+    }
+}
+setInterval(mCheckTyping, 100);
+$('#mSendField').keypress(function(){lastTypedTime = new Date();});
+$('#mSendField').blur(mCheckTyping);
+</script>
+<?php include "/includes/footer.php" ?>
+</body>
 </html>
