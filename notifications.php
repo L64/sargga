@@ -10,17 +10,18 @@
 ?>
 <html dir="<?php echo lang('html_dir'); ?>">
     <head>
-        <title>Notifications | Sargga</title>
+        <?php include "../config/webinfo.php" ?>
+        <title>Notifications | <?php echo $webpage_name ?></title>
         <meta charset="UTF-8">
-        <meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-        <meta name="keywords" content="Notifications,social network,social media,Wallstant,meet,free platform,Sargga">
-        <meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
+        <meta name="description" content="<?php echo $row_bio; ?>">
+        <meta name="keywords" content="<?php echo $keywords ?>">
+        <meta name="author" content="Munaf Aqeel Mahdi, Lucas64, Team Ciber">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include "includes/head_imports_main.php";?>
     </head>
     <body onload="fetchNotifications()">
         <!--=============================[ NavBar ]========================================-->
-        <?php include "includes/navbar_main.php"; ?>
+        <?php include "includes/navbar_home.php"; ?>
         <!--=============================[ Div_Container ]========================================-->
         <div class="main_container" align="center">
             <div style="display: inline-flex" align="center">
@@ -39,11 +40,11 @@
         <!--===============================[ End ]==========================================-->
         <?php include("includes/footer.php");?>
         <?php include "includes/endJScodes.php"; ?>
-                <script type="text/javascript">
-                        getNotifications('notificationsP');
-                    $('#notifi_loadmoreBtn').click(function(){
-                        getNotifications2('notificationsP');
-                    });
-                </script>
+        <script type="text/javascript">
+            getNotifications('notificationsP');
+            $('#notifi_loadmoreBtn').click(function(){
+                getNotifications2('notificationsP');
+            });
+        </script>
     </body>
 </html>
