@@ -1,7 +1,4 @@
-### Guys, Sargga is being taking a rest because we had a problem with a hosting company
-A hosting company haves the up-to-date and we can access to it. The project is in danger.
-
-
+### update PreAlpha 1
 
 
 > **Important to read!**
