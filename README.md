@@ -19,5 +19,5 @@ The project Sargga is being developed right now in it's official S.O., this code
 <li>000webhost (dev instance hosters)</li>
 ## Support
 1. Wiki?
-2. Lcibr (Discord server) (only spanish)
-<iframe src="https://titanembeds.com/embed/741660184228921386" height="600" width="800" frameborder="0"></iframe>
+2. [Lcibr (Discord server) (is in spanish)](https://inv.wtf/ciber)
+<li>[Enter with Titan Embeds](https://titanembeds.com/embed/741660184228921386)</li>
