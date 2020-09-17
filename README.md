@@ -1,4 +1,4 @@
-### update PreAlpha 1
+### update PreAlpha 1: uploading... do not download!!!!
 
 <h3 style="color: black;font-size: auto;">How to install</h3>
 			<p style="color: gray">* When you <b>sign up</b> to the first time into your social network, you will be the main admin of website and you can add more admins from <b>Dashboard > users > Edit/Delete </b>.</p>
