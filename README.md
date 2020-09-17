@@ -16,10 +16,13 @@
 The project Sargga is being developed right now in it's official S.O., this code is old, and when I finish, I'll upload the code here.
 
 ### Thanks
-<li>Munafio (Wallstant creator)</li>
-<li>000webhost (dev instance hosters)</li>
+<li><a href="https://github.com/munafio">Munafio (<a href="https://wallstant.github.io">Wallstant</a> creator)</li>
+<li><a href="https://000webhost.com">000webhost</a> (ex-dev instance hosters)</li>
 
 ## Support
 1. Wiki?
 2. <a href="https://inv.wtf/ciber">Lcibr (Discord server) (is in spanish)</a>
 <li><a href="https://titanembeds.com/embed/741660184228921386">Enter with Titan Embeds</a></li>
+
+## News
+I'm going to shut down the dev instance because I'm scared of a block of the website's database manager and (mostly) the files manager. This is more secure
