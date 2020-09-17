@@ -1,6 +1,6 @@
 
 
-### update PreAlpha 1: uploading... do not download!!!!
+### update PreAlpha 1: do not download!!!! (for now)
 
 ## Requeriments
 <li>PHP 7.x</li>
@@ -17,9 +17,6 @@
         <li>Configure website name at config > webinfo.php</li>
 	<li>Enjoy it.</li>
 </ol>
-
-## Important
-The project Sargga is being developed right now in it's official S.O., this code is old, and when I finish, I'll upload the code here.
 
 ## Thanks
 <li><a href="https://github.com/munafio">Munafio (<a href="https://wallstant.github.io">Wallstant</a> creator)</li>
