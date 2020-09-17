@@ -12,10 +12,12 @@
 	<li>Enjoy it.</li>
 </ol>
 
-## Support
-
-## Extra notes from the owner of this repo
+## Important
 The project Sargga is being developed right now in it's official S.O., this code is old, and when I finish, I'll upload the code here.
 ### Thanks
 <li>Munafio (Wallstant creator)</li>
 <li>000webhost (dev instance hosters)</li>
+## Support
+1. Wiki?
+2. Lcibr (Discord server) (only spanish)
+<iframe src="https://titanembeds.com/embed/741660184228921386" height="600" width="800" frameborder="0"></iframe>
