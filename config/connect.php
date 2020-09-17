@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "id14828328_owner";
-$password = "T}jxDE$}xqN%<1nd";
-$dbname = "id14828328_socialmoney";
+$username = "";
+$password = "";
+$dbname = "";
 
 try 
     {
