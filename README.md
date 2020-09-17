@@ -40,3 +40,6 @@ for more information about this open source PHP social network script : <br>
 
 ## Extra notes from the owner of this repo
 The project Sargga is being developed right now in it's official S.O., this code is old, and when I finish, I'll upload the code here.
+### Thanks
+<li>Munafio (Wallstant creator)</li>
+<li>000webhost (dev instance hosters)</li>
