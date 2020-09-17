@@ -22,11 +22,12 @@ if (is_dir("imgs/")) {
 ?>
 <html dir="<?php echo lang('html_dir'); ?>">
 <head>
-    <title>@<?php echo $row_username; ?> | Lcibr</title>
+    <?php include "../config/webinfo.php" ?>
+    <title><?php echo $prefix ?><?php echo $row_username; ?> | <?php echo $webpage_name ?></title>
     <meta charset="UTF-8">
     <meta name="description" content="<?php echo $row_bio; ?>">
-    <meta name="keywords" content="social network,social media,Wallstant,meet,free platform">
-    <meta name="author" content="Munaf Aqeel Mahdi">
+    <meta name="keywords" content="<?php echo $keywords ?>">
+    <meta name="author" content="Munaf Aqeel Mahdi,Lucas64,Team Ciber">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include "../includes/head_imports_main.php";?>
     </script>
@@ -169,7 +170,6 @@ if (filter_var(htmlspecialchars($_GET['u']),FILTER_SANITIZE_STRING) == $row_user
             if($_SESSION['Username'] == $row_username){
                 echo "
                 <div class=\"change_user_photo\">
-
                 <form action=\"\" method=\"post\" enctype=\"multipart/form-data\">
                 <label style='margin:0;'>
                     <p style='margin:0;color: #fff;text-align: center;'><span class=\"fa fa-camera\"></span> ".lang('uploadPhoto')."</p>
@@ -191,7 +191,7 @@ if (filter_var(htmlspecialchars($_GET['u']),FILTER_SANITIZE_STRING) == $row_user
             ?>
         <div class="profile_picture">
             <h3 style="margin-top:30px; "><?php echo "<a href='".$row_username."'>$row_fullname</a>"; if ($row_verify == "1"){echo $verifyUser;} ?></h3>
-            <p align="center">@<?php echo $row_username;?></p>
+            <p align="center"><?php echo $prefix ?><?php echo $row_username;?></p>
             <div style="display: flex;">
             <?php
                if($row_id != $_SESSION['id']){
@@ -372,7 +372,7 @@ echo "
 <table class='user_follow_box'>
 <tr>
 <td class='user_info_tdi'><div><img src=\"../imgs/user_imgs/".$_SESSION['Userphoto']."\" alt=\"".$_SESSION['Fullname']."\" /></div></td>
-<td style='width: 70%;'><a href=\"".$_SESSION['Username']."\" class='user_follow_box_a'><p>".$_SESSION['Fullname']." ".$verifypage_var."<br><span style='color:gray;'>@".$_SESSION['Username']."</span></a></td>
+<td style='width: 70%;'><a href=\"".$_SESSION['Username']."\" class='user_follow_box_a'><p>".$_SESSION['Fullname']." ".$verifypage_var."<br><span style='color:gray;'><?php echo $prefix ?>".$_SESSION['Username']."</span></a></td>
 </tr>
 </table>
 ";
@@ -404,7 +404,7 @@ if($id_followers != $_SESSION['id']){
 <table class='user_follow_box'>
 <tr>
 <td class='user_info_tdi'><div><img src=\"../imgs/user_imgs/$userphoto_followers\" alt=\"$fullname_followers\" /></div></td>
-<td style='width: 70%;'><a href=\"$username_followers\" class='user_follow_box_a'><p>$fullname_followers $verifypage_var<br><span style='color:gray;'>@$username_followers</span></a></td>
+<td style='width: 70%;'><a href=\"$username_followers\" class='user_follow_box_a'><p>$fullname_followers $verifypage_var<br><span style='color:gray;'><?php echo $prefix ?>$username_followers</span></a></td>
 <td style='width: 100%;'><span style='float:".lang('float2').";'>$follow_btn</span></td>
 </tr>
 </table>
@@ -461,7 +461,7 @@ echo "
 <table class='user_follow_box'>
 <tr>
 <td class='user_info_tdi'><div><img src=\"../imgs/user_imgs/".$_SESSION['Userphoto']."\" alt=\"".$_SESSION['Fullname']."\" /></div></td>
-<td style='width: 70%;'><a href=\"".$_SESSION['Username']."\" class='user_follow_box_a'><p>".$_SESSION['Fullname']." ".$verifypage_var."<br><span style='color:gray;'>@".$_SESSION['Username']."</span></a></td>
+<td style='width: 70%;'><a href=\"".$_SESSION['Username']."\" class='user_follow_box_a'><p>".$_SESSION['Fullname']." ".$verifypage_var."<br><span style='color:gray;'><?php echo $prefix ?>".$_SESSION['Username']."</span></a></td>
 </tr>
 </table>
 ";
@@ -493,7 +493,7 @@ if($id_followeing != $_SESSION['id']){
 <table class='user_follow_box' id='UserUnfollow_$id_followeing'>
 <tr>
 <td class='user_info_tdi'><div><img src=\"../imgs/user_imgs/$userphoto_followeing\" alt=\"$fullname_followeing\" /></div></td>
-<td style='width: 70%;'><a href=\"$username_followeing\" class='user_follow_box_a'><p>$fullname_followeing $verifypage_var<br><span style='color:gray;'>@$username_followeing</span></a></td>
+<td style='width: 70%;'><a href=\"$username_followeing\" class='user_follow_box_a'><p>$fullname_followeing $verifypage_var<br><span style='color:gray;'><?php echo $prefix ?>$username_followeing</span></a></td>
 <td style='width: 100%;'><span style='float:".lang('float2').";'>$follow_btn</span></td>
 </tr>
 </table>
@@ -538,7 +538,7 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
     <table class='user_follow_box'>
     <tr>
     <td class='user_info_tdi'><div><img src=\"../imgs/user_imgs/".$_SESSION['Userphoto']."\" alt=\"".$_SESSION['Fullname']."\" /></div></td>
-    <td style='width: 70%;'><a href=\"".$_SESSION['Username']."\" class='user_follow_box_a'><p>".$_SESSION['Fullname']." ".$verifypage_var."<br><span style='color:gray;'>@".$_SESSION['Username']."</span></a></td>
+    <td style='width: 70%;'><a href=\"".$_SESSION['Username']."\" class='user_follow_box_a'><p>".$_SESSION['Fullname']." ".$verifypage_var."<br><span style='color:gray;'><?php echo $prefix ?>".$_SESSION['Username']."</span></a></td>
     </tr>
     </table>
     ";
@@ -572,7 +572,7 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
         <table class='user_follow_box' id='UserUnfollow_$id_stars'>
         <tr>
         <td class='user_info_tdi'><div><img src=\"../imgs/user_imgs/$userphoto_stars\" alt=\"$fullname_stars\" /></div></td>
-        <td style='width: 70%;'><a href=\"$username_stars\" class='user_follow_box_a'><p>$fullname_stars $verifypage_var<br><span style='color:gray;'>@$username_stars</span></a></td>
+        <td style='width: 70%;'><a href=\"$username_stars\" class='user_follow_box_a'><p>$fullname_stars $verifypage_var<br><span style='color:gray;'><?php echo $prefix ?>$username_stars</span></a></td>
         <td style='width: 100%;'><span style='float:".lang('float2').";'>$follow_btn</span></td>
         </tr>
         </table>
