@@ -1,50 +1,51 @@
 <?php
-    error_reporting(E_ALL ^ E_NOTICE);
-    session_start();
-    include("config/connect.php");
-    include("includes/fetch_users_info.php");
-    include ("includes/time_function.php");
-    include ("includes/num_k_m_count.php");
-    if(!isset($_SESSION['Username'])){
-        header("location: index");
+error_reporting(E_ALL ^ E_NOTICE);
+session_start();
+include("config/connect.php");
+include("includes/fetch_users_info.php");
+include ("includes/time_function.php");
+include ("includes/num_k_m_count.php");
+if(!isset($_SESSION['Username'])){
+    header("location: index");
+}
+if (is_dir("imgs/")) {
+        $check_path = "";
+    }elseif (is_dir("../imgs/")) {
+        $check_path = "../";
+    }elseif (is_dir("../../imgs/")) {
+        $check_path = "../../";
     }
-    if (is_dir("imgs/")) {
-            $check_path = "";
-        }elseif (is_dir("../imgs/")) {
-            $check_path = "../";
-        }elseif (is_dir("../../imgs/")) {
-            $check_path = "../../";
-        }
 ?>
 <html dir="<?php echo lang('html_dir'); ?>">
-    <head>
-        <title>Home | Sargga</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-        <meta name="keywords" content="social network,social media,Wallstant,meet,free platform,Sargga">
-        <meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <?php include "includes/head_imports_main.php"; ?>
-    </head>
-    <body onload="fetchPosts_DB('home');">
-        <!--=============================[ NavBar ]========================================-->
-        <?php include "includes/navbar_main.php"; ?>
-        <!--=============================[ Div_Container ]========================================-->
-        <div class="main_container" align="center">
-        <!--====================================[ Center col's ]============================================-->
-            <div style="display: inline-flex" align="center">
-        <!--====================================[ Center col1 ]============================================-->
-            <div class="centerCol" align="left">
-                <div id="centerCol_Content">
-        <div class="homeLinks" style="text-align:<?php echo lang('homeLinks'); ?>">
-        <div align="center">
-        <div align="center" class="userinfo_homeLinks">
-        <a href="u/<?php echo $_SESSION['Username']; ?>">
-            <img src="<?php echo 'imgs/user_imgs/'.$_SESSION['Userphoto']; ?>">
-        </a>
-        </div>
-        <h3 style="margin:5px;font-size:18px;"><?php echo "<a href='u/".$_SESSION['Username']."'>".$_SESSION['Fullname']."</a>"; if ($_SESSION['verify'] == "1"){echo $verifyUser;} ?></h3>
-        <p align="center">@<?php echo $_SESSION['Username'];?></p>
+<head>
+    <?php include "config/webinfo.php" ?>
+    <title>Home | <?php echo $webpage_name ?></title>
+    <meta charset="UTF-8">
+    <meta name="description" content="<?php echo $webpage_description ?>">
+    <meta name="keywords" content="<?php echo $keywords ?>">
+    <meta name="author" content="Munaf Aqeel Mahdi,Lucas64,Team Ciber">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include "includes/head_imports_main.php"; ?>
+</head>
+<body onload="fetchPosts_DB('home');">
+<!--=============================[ NavBar ]========================================-->
+<?php include "includes/navbar_home.php"; ?>
+<!--=============================[ Div_Container ]========================================-->
+<div class="main_container" align="center">
+<!--====================================[ Center col's ]============================================-->
+    <div style="display: inline-flex" align="center">
+<!--====================================[ Center col1 ]============================================-->
+    <div class="centerCol" align="left">
+        <div id="centerCol_Content">
+<div class="homeLinks" style="text-align:<?php echo lang('homeLinks'); ?>">
+<div align="center">
+  <div align="center" class="userinfo_homeLinks">
+  <a href="u/<?php echo $_SESSION['Username']; ?>">
+    <img src="<?php echo 'imgs/user_imgs/'.$_SESSION['Userphoto']; ?>">
+  </a>
+  </div>
+  <h3 style="margin:5px;font-size:18px;"><?php echo "<a href='u/".$_SESSION['Username']."'>".$_SESSION['Fullname']."</a>"; if ($_SESSION['verify'] == "1"){echo $verifyUser;} ?></h3>
+<p align="center"><?php echo $prefix ?><?php echo $_SESSION['Username'];?></p>
 <?php
  echo "<span style='cursor:pointer;width:95%;display:inline-flex;margin:5px;'><a href='settings?tc=edit_profile' class=\"silver_flat_btn\" style='width:100%;'><span class=\"fa fa-cog\"></span> ".lang('edit_profile')."</a></span>";
 ?>
@@ -106,15 +107,15 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
         <div align="left">
             <div class="centerCol_2">
             <?php 
-                $uid = $_SESSION['id'];
-                $sqlQ = "SELECT aSetup FROM signup WHERE id=:uid";
-                $sqlQ_check = $conn->prepare($sqlQ);
-                $sqlQ_check->bindParam(':uid',$uid,PDO::PARAM_INT);
-                $sqlQ_check->execute();
-                while ($aSetupDB = $sqlQ_check->fetch(PDO::FETCH_ASSOC)) {
-                    $aSetupFromDb = $aSetupDB['aSetup'];
-                }
-                if ($aSetupFromDb != 100) {
+            $uid = $_SESSION['id'];
+            $sqlQ = "SELECT aSetup FROM signup WHERE id=:uid";
+            $sqlQ_check = $conn->prepare($sqlQ);
+            $sqlQ_check->bindParam(':uid',$uid,PDO::PARAM_INT);
+            $sqlQ_check->execute();
+            while ($aSetupDB = $sqlQ_check->fetch(PDO::FETCH_ASSOC)) {
+                $aSetupFromDb = $aSetupDB['aSetup'];
+            }
+            if ($aSetupFromDb != 100) {
             ?>
             <div id="AccountSetup">
             <div class="post">
@@ -300,26 +301,27 @@ while ($getS_row = $getS->fetch(PDO::FETCH_ASSOC)) {
 <!--====================================[ end Center col3 ]============================================-->
 </div>
 <!--===============================[ End ]==========================================-->
-        <script type="text/javascript">
-            $('.postContent_EditBox').each(function () {
-              this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;text-align:' + "<?php echo lang('post_textbox_align'); ?>;");
-            }).on('input', function () {
-                                this.style.height = 'auto';
-                  this.style.height = (this.scrollHeight) + 'px';
-            });
-                $("#trPagesTab").click(function(){
-                $("#trPagesTab").css({"background": "#fff"});
-                $("#trPostsTab").css({"background": "#e9ebee"});
-                $("#trPages").show();
-                $("#trPosts").hide();
-            });
-                $("#trPostsTab").click(function(){
-                $("#trPostsTab").css({"background": "#fff"});
-                $("#trPagesTab").css({"background": "#e9ebee"});
-                $("#trPosts").show();
-                $("#trPages").hide();
-            });
-        </script>
-        <?php include "includes/endJScodes.php"; ?>
-    </body>
+<script type="text/javascript">
+$('.postContent_EditBox').each(function () {
+  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;text-align:' + "<?php echo lang('post_textbox_align'); ?>;");
+}).on('input', function () {
+  this.style.height = 'auto';
+  this.style.height = (this.scrollHeight) + 'px';
+});
+$("#trPagesTab").click(function(){
+$("#trPagesTab").css({"background": "#fff"});
+$("#trPostsTab").css({"background": "#e9ebee"});
+$("#trPages").show();
+$("#trPosts").hide();
+});
+$("#trPostsTab").click(function(){
+$("#trPostsTab").css({"background": "#fff"});
+$("#trPagesTab").css({"background": "#e9ebee"});
+$("#trPosts").show();
+$("#trPages").hide();
+});
+</script>
+<?php include "includes/footer.php" ?>
+<?php include "includes/endJScodes.php"; ?>
+</body>
 </html>

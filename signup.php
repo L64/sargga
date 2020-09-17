@@ -1,61 +1,62 @@
 <?php
-    error_reporting(E_ALL ^ E_NOTICE);
-    session_start();
-    if(isset($_SESSION['Username'])){
-        header("location: home");
-    }
-    $getLang = trim(filter_var(htmlentities($_GET['lang']),FILTER_SANITIZE_STRING));
-    if (!empty($getLang)) {
-    $_SESSION['language'] = $getLang;
-    }
-    // ========================= config the languages ================================
-    error_reporting(E_NOTICE ^ E_ALL);
-    if (is_file('home.php')){
-        $path = "";
-    }elseif (is_file('../home.php')){
-        $path =  "../";
-    }elseif (is_file('../../home.php')){
-        $path =  "../../";
-    }
-    include_once $path."langs/set_lang.php";
+error_reporting(E_ALL ^ E_NOTICE);
+session_start();
+if(isset($_SESSION['Username'])){
+    header("location: home");
+}
+$getLang = trim(filter_var(htmlentities($_GET['lang']),FILTER_SANITIZE_STRING));
+if (!empty($getLang)) {
+$_SESSION['language'] = $getLang;
+}
+// ========================= config the languages ================================
+error_reporting(E_NOTICE ^ E_ALL);
+if (is_file('home.php')){
+    $path = "";
+}elseif (is_file('../home.php')){
+    $path =  "../";
+}elseif (is_file('../../home.php')){
+    $path =  "../../";
+}
+include_once $path."langs/set_lang.php";
 ?>
 <html dir="<? echo lang('html_dir'); ?>">
-    <head>
-        <title><? echo lang('create_new_account'); ?> | Sargga</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="Sargga is a social network platform helps you meet new friends and stay connected with your family and with who you are interested anytime anywhere.">
-        <meta name="keywords" content="signup,social network,social media,Wallstant,meet,free platform">
-        <meta name="author" content="Munaf Aqeel Mahdi,Lucas Tjor">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <?php include "includes/head_imports_main.php";?>
-    </head>
+<head>
+    <?php include "config/webinfo.php" ?>
+    <title><? echo lang('create_new_account'); ?> | <?php echo $webpage_name ?></title>
+    <meta charset="UTF-8">
+    <meta name="description" content="<?php echo $webpage_description ?>">
+    <meta name="keywords" content="<?php echo $keywords ?>">
+    <meta name="author" content="Munaf Aqeel Mahdi,Lucas64,Ciber Team">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include "includes/head_imports_main.php";?>
+</head>
     <body class="login_signup_body">
-        <!--============[ Nav bar ]============-->
-        <div class="login_signup_navbar">
-            <a href="index" class="login_signup_navbarLinks">Wallstant</a>
-            <a href="#" class="login_signup_navbarLinks"><? echo lang('help'); ?></a>
-            <a href="#" class="login_signup_navbarLinks"><? echo lang('terms'); ?></a>
-            <a href="#" class="login_signup_navbarLinks"><? echo lang('privacyPolicy'); ?></a>
-            <div style="float: <? echo lang('float2'); ?>;">
-                <a href="login" class="login_signup_btn1"><? echo lang('login'); ?></a>
-                <a href="signup" class="login_signup_btn2"><? echo lang('signup'); ?></a>
-            </div>
+    <!--============[ Nav bar ]============-->
+    <div class="login_signup_navbar">
+        <a href="index" class="login_signup_navbarLinks">ʟ𝗰𝗶𝗯𝗿</a>
+        <a href="https://titanembeds.com/embed/741660184228921386" class="login_signup_navbarLinks"><? echo lang('help'); ?></a>
+        <a href="terms" class="login_signup_navbarLinks"><? echo lang('terms'); ?></a>
+        <a href="privacy" class="login_signup_navbarLinks"><? echo lang('privacyPolicy'); ?></a>
+        <div style="float: <? echo lang('float2'); ?>;">
+            <a href="login" class="login_signup_btn1"><? echo lang('login'); ?></a>
+            <a href="signup" class="login_signup_btn2"><? echo lang('signup'); ?></a>
         </div>
-        <!--============[ main contains ]============-->
-        <div align="center">
-            <div class="login_signup_box2" style="text-align:<? echo lang('textAlign'); ?>">
-            <!--============[ sign up sec ]============-->
-                <h4 align="center"><? echo lang('create_new_account'); ?></h4>
-                <p><input type="text" name="signup_fullname" class="login_signup_textfield" id="fn" placeholder="<? echo lang('fullname'); ?>"/></p>
-                <p><input type="text" name="signup_username" class="login_signup_textfield" id="un" placeholder="<? echo lang('username'); ?>"/></p>
-                <p><input type="email" name="signup_email" class="login_signup_textfield" id="em" placeholder="<? echo lang('email'); ?>"/></p>
-                <p><input type="password" name="signup_password" class="login_signup_textfield" id="pd" placeholder="<? echo lang('password'); ?>"/></p>
-                <p><input type="password" name="signup_cpassword" class="login_signup_textfield" id="cpd" placeholder="<? echo lang('confirm_password'); ?>"/></p>
-                <p> 
-                    <select class="login_signup_textfield" name="gender" id="gr">
-                    <option selected><? echo lang('male'); ?></option>
-                    <option><? echo lang('female'); ?></option>
-               </select>
+    </div>
+    <!--============[ main contains ]============-->
+    <div align="center">
+        <div class="login_signup_box2" style="text-align:<? echo lang('textAlign'); ?>">
+        <!--============[ sign up sec ]============-->
+            <h4 align="center"><? echo lang('create_new_account'); ?></h4>
+            <p><input type="text" name="signup_fullname" class="login_signup_textfield" id="fn" placeholder="<? echo lang('fullname'); ?>"/></p>
+            <p><input type="text" name="signup_username" class="login_signup_textfield" id="un" placeholder="<? echo lang('username'); ?>"/></p>
+            <p><input type="email" name="signup_email" class="login_signup_textfield" id="em" placeholder="<? echo lang('email'); ?>"/></p>
+            <p><input type="password" name="signup_password" class="login_signup_textfield" id="pd" placeholder="<? echo lang('password'); ?>"/></p>
+            <p><input type="password" name="signup_cpassword" class="login_signup_textfield" id="cpd" placeholder="<? echo lang('confirm_password'); ?>"/></p>
+            <p> 
+            <select class="login_signup_textfield" name="gender" id="gr">
+              <option selected><? echo lang('male'); ?></option>
+              <option><? echo lang('female'); ?></option>
+            </select>
             </p>
             <p style="font-size: 11px;color: #5d5d5d;margin: 8px 0px; ">
                 <? echo lang('by_clicking_signup_str'); ?> <a href="terms"><? echo lang('terms'); ?></a>, <a href="privacy"><? echo lang('privacyPolicy'); ?></a> <? echo lang('and'); ?> <a href="cookie"><? echo lang('cookie_use'); ?></a>.</p>
@@ -65,7 +66,7 @@
         <!--============[ login sec ]============-->
         <div style="background: #fff; border-radius: 3px; width: 420px; padding: 15px; margin: 15px;color: #7b7b7b;" align="center">
             <? echo lang('already_have_an_account'); ?> <a href="login"><? echo lang('login_now'); ?></a>.<hr style="margin: 8px;">
-                <a href="?lang=english">English</a> &bull; <a href="?lang=العربية">العربية</a>
+                <a href="?lang=en">English</a> &bull; <a href="?lang=العربية">العربية</a> &bull; <a href="?lang=es">Español</a>
         </div>
     </div>
 
@@ -109,5 +110,6 @@ $(".login_signup_textfield").keypress( function (e) {
     }
 });
 </script>
+<?php include "includes/footer.php" ?>
     </body>
 </html>

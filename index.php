@@ -21,18 +21,19 @@
 ?>
 <html dir="<? echo lang('html_dir'); ?>">
     <head>
-        <title><? echo lang('welcome'); ?> | Lcibr</title>
+        <?php include "config/webinfo.php" ?>
+        <title><? echo lang('welcome'); ?> | <?php echo $webpage_name ?></title>
         <meta charset="UTF-8">
-        <meta name="description" content="Lcibr is an irani-latinoamerican social network platform oriented to technology, but open to all, for now the registers are only for the people of our Discord.">
-        <meta name="keywords" content="homepage,main,login,social network,social media,Wallstant,meet,free platform,Sargga,Lciber">
-        <meta name="author" content="Munaf Aqeel Mahdi,Lucas64,Ciber Team">
+        <meta name="description" content="<?php echo $webpage_description; ?>">
+        <meta name="keywords" content="<?php echo $keywords ?>">
+        <meta name="author" content="Munaf Aqeel Mahdi, Lucas64, Team Ciber">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php include "includes/head_imports_main.php";?>
     </head>
     <body class="login_signup_body">
     <!--============[ Nav bar ]============-->
         <div class="login_signup_navbar">
-                <a href="index" class="login_signup_navbarLinks">ʟ𝗰𝗶𝗯𝗿</a>
+                <a href="index" class="login_signup_navbarLinks"><?php echo $webpage_name ?></a>
                 <a href="https://titanembeds.com/embed/741660184228921386" class="login_signup_navbarLinks"><? echo lang('help'); ?></a>
                 <a href="terms" class="login_signup_navbarLinks"><? echo lang('terms'); ?></a>
                 <a href="privacy" class="login_signup_navbarLinks"><? echo lang('privacyPolicy'); ?></a>
@@ -43,7 +44,7 @@
         </div>
         <!--============[ main contains ]============-->
         <div class="login_signup_box">
-        <h3 align="center"><? echo lang('welcome_to'); ?> ʟ𝗰𝗶𝗯𝗿 ᴘʀᴇᴀᴘʟʜᴀ</h3>
+        <h3 align="center"><? echo lang('welcome_to'); ?> <?php echo $webpage_name ?> ᴘʀᴇᴀᴘʟʜᴀ</h3>
         <p align="center" style="color: #999; margin-bottom: 25px;"><? echo lang('wallstant_main_string'); ?>.</p>
             <div style="display: flex;">
                 <div style="width: 100%;">
