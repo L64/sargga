@@ -21,7 +21,7 @@
 ## Important
 The project Sargga is being developed right now in it's official S.O., this code is old, and when I finish, I'll upload the code here.
 
-### Thanks
+## Thanks
 <li><a href="https://github.com/munafio">Munafio (<a href="https://wallstant.github.io">Wallstant</a> creator)</li>
 <li><a href="https://000webhost.com">000webhost</a> (ex-dev instance hosters)</li>
 <li><a href="https://fontawesome.com">Font Awesome</a>
