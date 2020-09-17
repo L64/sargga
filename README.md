@@ -26,3 +26,5 @@ The project Sargga is being developed right now in it's official S.O., this code
 
 ## News
 I'm going to shut down the dev instance because I'm scared of a block of the website's database manager and (mostly) the files manager. This is more secure
+
+I'll test this software in my machine
